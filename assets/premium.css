@@ -44,12 +44,22 @@ button { font: inherit; }
 .brand-logo { width: 52px; height: 52px; object-fit: contain; filter: drop-shadow(0 8px 18px rgba(7,86,164,.2)); }
 .brand strong { display: block; font-weight: 800; letter-spacing: .02em; color: var(--blue); line-height: 1; }
 .brand small { display: block; color: var(--muted); font-size: 11px; margin-top: 4px; }
-.nav-links { display: flex; gap: 24px; align-items: center; font-size: 14px; font-weight: 700; color: #22334a; }
+.nav-links { display: flex; gap: 24px; align-items: center; font-size: 15.5px; font-weight: 800; color: #16283f; }
 .nav-links a { position: relative; padding: 4px 0; }
 .nav-links a::after { content: ""; position: absolute; left: 0; bottom: -3px; width: 0; height: 2px; background: var(--orange); transition: width .25s ease; }
 .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+.nav-drop { position: relative; display: inline-flex; align-items: center; }
+.nav-drop > a { display: inline-flex; align-items: center; }
+.drop-caret { margin-left: 5px; font-size: 10px; opacity: .75; }
+.nav-drop::after { content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 14px; }
+.nav-menu { position: absolute; top: calc(100% + 12px); left: 50%; transform: translateX(-50%) translateY(6px); display: flex; flex-direction: column; min-width: 190px; padding: 8px; background: #fff; border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 18px 44px rgba(9,41,78,.16); opacity: 0; visibility: hidden; transition: opacity .18s ease, transform .18s ease; z-index: 60; }
+.nav-drop:hover .nav-menu, .nav-drop:focus-within .nav-menu { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+.nav-menu a { padding: 9px 12px; border-radius: 9px; white-space: nowrap; }
+.nav-menu a::after { display: none; }
+.nav-menu a:hover { background: rgba(7,86,164,.08); }
 .nav-actions { display: flex; align-items: center; gap: 14px; }
-.phone-link { font-weight: 800; font-size: 14px; color: var(--blue); }
+.phone-link { font-weight: 800; font-size: 17px; color: var(--orange); letter-spacing: .01em; }
+.drawer a.drawer-sub { padding-left: 24px; font-size: 20px; opacity: .82; }
 .btn {
   display: inline-flex;
   align-items: center;
@@ -111,7 +121,12 @@ h1 { max-width: 680px; margin: 0; font-size: clamp(44px, 6vw, 76px); color: #102
 .hero-panel p span { display: block; margin-top: 4px; font-weight: 600; font-size: 13px; color: var(--muted); }
 
 /* Γυάλινο (glass) πάνελ κειμένου πάνω από το banner (δεξιά) */
-.hero .hero-copy { position: absolute; right: max(3vw, 22px); bottom: 7vh; z-index: 3; width: min(468px, 42vw); max-width: 468px; padding: 28px 32px; border-radius: 24px; background: linear-gradient(135deg, rgba(14,32,60,.52), rgba(14,32,60,.36)); border: 1px solid rgba(255,255,255,.28); box-shadow: 0 26px 64px rgba(6,20,45,.34); -webkit-backdrop-filter: blur(16px) saturate(1.15); backdrop-filter: blur(16px) saturate(1.15); }
+.hero .hero-copy { position: absolute; right: max(3vw, 22px); bottom: 7vh; z-index: 3; width: min(418px, 38vw); max-width: 418px; padding: 26px 30px; border-radius: 24px; background: linear-gradient(135deg, rgba(14,32,60,.52), rgba(14,32,60,.36)); border: 1px solid rgba(255,255,255,.28); box-shadow: 0 26px 64px rgba(6,20,45,.34); -webkit-backdrop-filter: blur(16px) saturate(1.15); backdrop-filter: blur(16px) saturate(1.15); }
+/* Αριστερό κουτάκι τίτλου, πάνω από τον υπότιτλο του banner */
+.hero-tagline { position: absolute; left: 12%; top: 60.5%; z-index: 3; width: min(500px, 40vw); padding: 18px 26px; border-radius: 18px; background: linear-gradient(135deg, rgba(9,22,48,.72), rgba(9,22,48,.6)); border: 1px solid rgba(255,255,255,.3); box-shadow: 0 18px 44px rgba(6,20,45,.32); -webkit-backdrop-filter: blur(14px) saturate(1.1); backdrop-filter: blur(14px) saturate(1.1); }
+.hero-tagline h1 { margin: 0; color: #fff; font-size: clamp(22px, 2.3vw, 33px); line-height: 1.12; text-shadow: 0 2px 14px rgba(6,18,40,.42); }
+.hero .hero-copy .hero-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.hero .hero-copy .hero-actions .btn { width: 100%; padding: 0 8px; font-size: 13.5px; min-height: 46px; white-space: nowrap; }
 .hero-doctor { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; }
 .hero-doctor img { width: 60px; height: 60px; border-radius: 14px; object-fit: cover; object-position: center top; border: 2px solid rgba(255,255,255,.5); flex-shrink: 0; }
 .hero-doctor strong { display: block; color: #fff; font-size: 15px; font-weight: 700; line-height: 1.2; }
@@ -592,6 +607,7 @@ figcaption { position: relative; z-index: 1; color: rgba(255,255,255,.76); font-
   .hero-media { width: 100%; opacity: .42; }
   .hero-grid, .method-grid, .about-grid, .contact-grid { grid-template-columns: 1fr; }
   .hero .hero-copy { position: relative; z-index: 3; right: auto; bottom: auto; width: auto; max-width: 100%; transform: none; }
+  .hero-tagline { position: relative; z-index: 3; left: auto; top: auto; width: auto; max-width: 100%; margin-bottom: 14px; }
   .page-layout, .service-cards, .split-feature, .bio-metrics, .legal-wrap { grid-template-columns: 1fr; }
   .side-card { position: static; }
   .legal-toc { position: static; }
@@ -693,6 +709,8 @@ figcaption { position: relative; z-index: 1; color: rgba(255,255,255,.76); font-
     gap: 10px;
     max-width: 230px;
   }
+  .hero .hero-copy .hero-actions { grid-template-columns: 1fr; max-width: 230px; }
+  .hero .hero-copy .hero-actions .btn { font-size: 15px; padding: 0 16px; min-height: 48px; }
   .hero-actions .btn {
     min-height: 48px;
     padding: 0 16px;
