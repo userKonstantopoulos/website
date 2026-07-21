@@ -44,8 +44,8 @@ button { font: inherit; }
 .brand-logo { width: 52px; height: 52px; object-fit: contain; filter: drop-shadow(0 8px 18px rgba(7,86,164,.2)); }
 .brand strong { display: block; font-weight: 800; letter-spacing: .02em; color: var(--blue); line-height: 1; }
 .brand small { display: block; color: var(--muted); font-size: 11px; margin-top: 4px; }
-.nav-links { display: flex; gap: 24px; align-items: center; font-size: 15.5px; font-weight: 800; color: #16283f; }
-.nav-links a { position: relative; padding: 4px 0; }
+.nav-links { display: flex; gap: 24px; align-items: center; font-size: 15.5px; font-weight: 800; color: #000000; }
+.nav-links a { position: relative; padding: 4px 0; color: #000000; }
 .nav-links a::after { content: ""; position: absolute; left: 0; bottom: -3px; width: 0; height: 2px; background: var(--orange); transition: width .25s ease; }
 .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
 .nav-drop { position: relative; display: inline-flex; align-items: center; }
@@ -95,7 +95,7 @@ button { font: inherit; }
   box-shadow: -30px 0 70px rgba(0,0,0,.16);
   transition: right .3s ease;
 }
-.drawer a:not(.btn) { font: 600 24px/1.1 "Source Serif 4", Georgia, serif; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+.drawer a:not(.btn) { font: 600 24px/1.1 "Source Serif 4", Georgia, serif; padding-bottom: 16px; border-bottom: 1px solid var(--line); color: #000000; }
 body.menu-open .drawer { right: 0; }
 body.menu-open .overlay { opacity: 1; pointer-events: auto; }
 
@@ -793,4 +793,42 @@ figcaption { position: relative; z-index: 1; color: rgba(255,255,255,.76); font-
     white-space: normal;
     line-height: 1.15;
   }
+}
+
+/* ── Αρχική: κρυφό λεκτικό brand πάνω αριστερά (μένει μόνο ως κενός χώρος) ── */
+.brand-quiet { display: none; }
+
+/* Αρχική: όλο το μενού μαζεμένο αριστερά, πάνω στη λευκή περιοχή */
+body.home .nav { justify-content: flex-start; gap: 30px; }
+body.home .nav-actions { margin-left: 4px; }
+
+/* ── Αρχική: μαύρα γράμματα στο μενού πάνω από το banner ── */
+body.home .topbar:not(.scrolled) .nav-links,
+body.home .topbar:not(.scrolled) .nav-links a { color: #000000; }
+body.home .topbar:not(.scrolled) .phone-link { color: var(--orange); }
+body.home .topbar:not(.scrolled) .nav-links a::after { background: var(--orange); }
+body.home .topbar:not(.scrolled) .nav-menu a { color: #16283f; }
+body.home .topbar:not(.scrolled) .hamburger span { background: var(--orange); }
+/* Κουμπί Ραντεβού: πορτοκαλί, ώστε να ξεχωρίζει και πάνω στο μπλε και πάνω στο λευκό */
+body.home .topbar .nav-actions .btn.primary { background: var(--orange); color: #fff; box-shadow: 0 15px 35px rgba(236,123,36,.3); }
+body.home .topbar .nav-actions .btn.primary:hover { background: #d76a17; }
+
+/* ── Αρχική: μικρότερο κουτί με τη φωτογραφία, ώστε να φαίνονται οι γραμμές του εγκεφάλου ── */
+.hero .hero-copy { width: min(330px, 29vw); max-width: 330px; padding: 18px 22px; }
+.hero .hero-copy .lead { margin: 16px 0 22px; }
+.hero .hero-copy .hero-stats { margin-top: 26px; }
+
+/* ── Ο Χώρος: μικρότερος τίτλος (-20%) και χάρτης ── */
+.page-hero h1.h1-sm { font-size: clamp(35px, 4.8vw, 61px); }
+.map-block { margin-top: 30px; }
+.map-embed { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow); }
+.map-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.map-address { margin: 22px 0 0; padding: 0; list-style: none; display: grid; gap: 6px; font-size: 17px; font-weight: 700; color: #24364c; }
+.map-address li:first-child { font-size: 19px; }
+@media (max-width: 640px) { .map-embed { aspect-ratio: 4 / 3; } }
+
+@media (max-width: 980px) {
+  body.home .nav { justify-content: flex-end; }
+  .hero .hero-copy { width: auto; max-width: 100%; padding: 22px 26px; }
+  .page-hero h1.h1-sm { font-size: clamp(30px, 8.8vw, 36px); }
 }
