@@ -83,21 +83,39 @@
   }
 
   if (!hasConsent) {
-    var inLegal = window.location.pathname.indexOf("/legal/") !== -1;
-    var cookiesHref = inLegal ? "cookies.html" : "legal/cookies.html";
+    var pathname = window.location.pathname;
+    var inLegal = pathname.indexOf("/legal/") !== -1;
+    var inEn = pathname.indexOf("/en/") !== -1;
+    var cookiesHref = inLegal ? "cookies.html" : (inEn ? "../legal/cookies.html" : "legal/cookies.html");
+    var isEn = (document.documentElement.lang || "").toLowerCase().indexOf("en") === 0;
+    var t = isEn ? {
+      aria: "Cookie notice",
+      title: "Cookies",
+      body: "We use essential cookies for the operation of the website. Non-essential cookies are enabled only with consent.",
+      link: "Cookie Policy",
+      necessary: "Essential only",
+      accept: "Accept"
+    } : {
+      aria: "Ενημέρωση cookies",
+      title: "Cookies",
+      body: "Χρησιμοποιούμε απαραίτητα cookies για τη λειτουργία του ιστοτόπου. Τα μη αναγκαία cookies ενεργοποιούνται μόνο με συγκατάθεση.",
+      link: "Πολιτική Cookies",
+      necessary: "Μόνο απαραίτητα",
+      accept: "Αποδοχή"
+    };
     var banner = document.createElement("div");
     banner.className = "cookie-banner";
     banner.setAttribute("role", "dialog");
-    banner.setAttribute("aria-label", "Ενημέρωση cookies");
+    banner.setAttribute("aria-label", t.aria);
     banner.innerHTML = [
       '<div class="cookie-copy">',
-      "<strong>Cookies</strong>",
-      "<p>Χρησιμοποιούμε απαραίτητα cookies για τη λειτουργία του ιστοτόπου. Τα μη αναγκαία cookies ενεργοποιούνται μόνο με συγκατάθεση.</p>",
-      '<a href="' + cookiesHref + '">Πολιτική Cookies</a>',
+      "<strong>" + t.title + "</strong>",
+      "<p>" + t.body + "</p>",
+      '<a href="' + cookiesHref + '">' + t.link + "</a>",
       "</div>",
       '<div class="cookie-actions">',
-      '<button type="button" class="btn secondary" data-cookie-choice="necessary">Μόνο απαραίτητα</button>',
-      '<button type="button" class="btn primary" data-cookie-choice="accepted">Αποδοχή</button>',
+      '<button type="button" class="btn secondary" data-cookie-choice="necessary">' + t.necessary + "</button>",
+      '<button type="button" class="btn primary" data-cookie-choice="accepted">' + t.accept + "</button>",
       "</div>"
     ].join("");
     document.body.appendChild(banner);

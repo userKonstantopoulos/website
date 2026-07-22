@@ -58,7 +58,12 @@ button { font: inherit; }
 .nav-menu a::after { display: none; }
 .nav-menu a:hover { background: rgba(7,86,164,.08); }
 .nav-actions { display: flex; align-items: center; gap: 14px; }
-.phone-link { font-weight: 800; font-size: 17px; color: var(--orange); letter-spacing: .01em; }
+.phone-link { font-weight: 800; font-size: 17px; color: #000000; letter-spacing: .01em; }
+.nav-actions .btn.primary { background: #000000; color: #fff; box-shadow: 0 15px 35px rgba(0,0,0,.2); }
+.nav-actions .btn.primary:hover { background: #1a1a1a; }
+.lang-switch { display: inline-flex; align-items: center; justify-content: center; height: 38px; padding: 0 13px; border-radius: 999px; border: 1.5px solid rgba(0,0,0,.2); font-weight: 800; font-size: 13.5px; letter-spacing: .05em; color: #000000; transition: background .2s ease, color .2s ease, border-color .2s ease; }
+.lang-switch:hover { background: #000000; color: #fff; border-color: #000000; }
+.drawer .lang-switch { align-self: flex-start; margin-top: 4px; height: 44px; padding: 0 20px; font-size: 15px; }
 .drawer a.drawer-sub { padding-left: 24px; font-size: 20px; opacity: .82; }
 .btn {
   display: inline-flex;
@@ -805,13 +810,13 @@ body.home .nav-actions { margin-left: 4px; }
 /* ── Αρχική: μαύρα γράμματα στο μενού πάνω από το banner ── */
 body.home .topbar:not(.scrolled) .nav-links,
 body.home .topbar:not(.scrolled) .nav-links a { color: #000000; }
-body.home .topbar:not(.scrolled) .phone-link { color: var(--orange); }
+body.home .topbar:not(.scrolled) .phone-link { color: #000000; }
 body.home .topbar:not(.scrolled) .nav-links a::after { background: var(--orange); }
 body.home .topbar:not(.scrolled) .nav-menu a { color: #16283f; }
 body.home .topbar:not(.scrolled) .hamburger span { background: var(--orange); }
 /* Κουμπί Ραντεβού: πορτοκαλί, ώστε να ξεχωρίζει και πάνω στο μπλε και πάνω στο λευκό */
-body.home .topbar .nav-actions .btn.primary { background: var(--orange); color: #fff; box-shadow: 0 15px 35px rgba(236,123,36,.3); }
-body.home .topbar .nav-actions .btn.primary:hover { background: #d76a17; }
+body.home .topbar .nav-actions .btn.primary { background: #000000; color: #fff; box-shadow: 0 15px 35px rgba(0,0,0,.3); }
+body.home .topbar .nav-actions .btn.primary:hover { background: #1a1a1a; }
 
 /* ── Αρχική: μικρότερο κουτί με τη φωτογραφία, ώστε να φαίνονται οι γραμμές του εγκεφάλου ── */
 .hero .hero-copy { width: min(330px, 29vw); max-width: 330px; padding: 18px 22px; }
