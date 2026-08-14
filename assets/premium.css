@@ -837,3 +837,11 @@ body.home .topbar .nav-actions .btn.primary:hover { background: #1a1a1a; }
   .hero .hero-copy { width: auto; max-width: 100%; padding: 22px 26px; }
   .page-hero h1.h1-sm { font-size: clamp(30px, 8.8vw, 36px); }
 }
+
+/* ── Ενότητα «Για την οικογένεια» (αρχική) ── */
+.section.family { padding-top: 0; }
+.family .feature-panel { max-width: 900px; margin: 0 auto; text-align: center; }
+.family .feature-panel .kicker { color: #ffb26b; }
+.family .feature-panel h2 { margin: 0; font-size: clamp(28px, 3.4vw, 42px); }
+.family .feature-panel p { margin: 18px auto 26px; max-width: 680px; font-size: 17px; }
+.family .feature-panel .btn.secondary { background: #fff; border-color: transparent; }
