@@ -294,14 +294,14 @@
 
   <footer class="footer"><div class="shell"><span>© <b id="year"></b> ΜΝΗΜΗ & ΛΟΓΟΣ</span><span class="footer-links"><a href="legal/privacy.html">Απόρρητο</a><a href="legal/cookies.html">Cookies</a><a href="legal/terms.html">Όροι</a><a href="legal/cookie-terms.html">Όροι Cookies</a></span><span class="clinicbrain-credit">made by <a href="https://clinicbrain.gr" target="_blank" rel="noopener">clinicbrain</a></span></div></footer>
 
-  <script>
-window.addEventListener('load', function () {
-  document.querySelectorAll('a[href^="tel:"]').forEach(function(link) {
-    link.addEventListener('click', function() {
-      gtag('event', 'phone_click', {
-        phone_number: this.getAttribute('href')
-      });
-    });
+ <script>
+document.addEventListener('click', function(e) {
+  const link = e.target.closest('a[href^="tel:"]');
+  if (!link || typeof gtag !== 'function') return;
+
+  gtag('event', 'phone_click', {
+    phone_number: link.getAttribute('href'),
+    send_to: 'G-1Q1ZS26GC9'
   });
 });
 </script>
