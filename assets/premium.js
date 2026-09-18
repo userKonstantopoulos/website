@@ -137,3 +137,33 @@
     });
   }
 })();
+
+(function () {
+  document.querySelectorAll(".contact-form").forEach(function (form) {
+    var status = form.querySelector(".form-status");
+    var button = form.querySelector('button[type="submit"]');
+    var label = button.textContent;
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      status.className = "form-status";
+      status.textContent = "";
+      button.disabled = true;
+      button.textContent = form.getAttribute("data-sending");
+      fetch(form.action, { method: "POST", body: new FormData(form), headers: { Accept: "application/json" } })
+        .then(function (response) {
+          if (!response.ok) throw new Error("status " + response.status);
+          form.reset();
+          status.className = "form-status ok";
+          status.textContent = form.getAttribute("data-ok");
+        })
+        .catch(function () {
+          status.className = "form-status err";
+          status.textContent = form.getAttribute("data-err");
+        })
+        .then(function () {
+          button.disabled = false;
+          button.textContent = label;
+        });
+    });
+  });
+})();

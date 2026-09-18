@@ -278,6 +278,24 @@ figcaption { position: relative; z-index: 1; color: rgba(255,255,255,.76); font-
 .contact-card span { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: .14em; color: rgba(255,255,255,.66); font-weight: 800; }
 .contact-card strong { display: block; margin-top: 4px; font-size: clamp(18px, 2.5vw, 28px); line-height: 1.22; overflow-wrap: anywhere; }
 .contact-card .btn.primary { background: #fff; color: var(--blue); box-shadow: none; }
+.contact-grid:has(.contact-form) { align-items: start; }
+.contact-form { display: grid; gap: 14px; margin-top: 30px; padding-top: 28px; border-top: 1px solid var(--line); }
+.contact-form .contact-form-title { margin: 0 0 4px; color: #12243a; font: 600 22px/1.2 "Source Serif 4", Georgia, serif; }
+.contact-form label { display: grid; gap: 6px; }
+.contact-form label span { font-size: 13px; font-weight: 700; color: var(--ink); }
+.contact-form label em { font-style: normal; font-weight: 500; color: var(--muted); }
+.contact-form input, .contact-form textarea { width: 100%; font: inherit; font-size: 16px; color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; transition: border-color .2s ease, box-shadow .2s ease, background .2s ease; }
+.contact-form textarea { resize: vertical; min-height: 110px; }
+.contact-form input:focus, .contact-form textarea:focus { outline: none; background: #fff; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(7,86,164,.14); }
+.contact-form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.contact-form .btn { justify-self: start; margin-top: 4px; cursor: pointer; }
+.contact-form .btn[disabled] { opacity: .6; cursor: wait; transform: none; }
+.contact-form .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.form-status:empty { display: none; }
+.form-status { padding: 12px 14px; border-radius: var(--radius); font-size: 15px; font-weight: 600; }
+.form-status.ok { background: #e8f6ee; color: #17663a; }
+.form-status.err { background: #fdeee4; color: #9a4610; }
+@media (max-width: 640px) { .contact-form .form-row { grid-template-columns: 1fr; } .contact-form .btn { justify-self: stretch; } }
 
 .footer { padding: 28px 0; background: #0f1f31; color: rgba(255,255,255,.72); font-size: 14px; }
 .footer .shell { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
