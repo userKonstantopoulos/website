@@ -55,11 +55,12 @@ jobs:
               parser.feed(raw)
               problems = []
               if not parser.title.strip(): problems.append('Missing title')
-              if len(parser.description) != 1 or not parser.description[0].strip(): problems.append('Missing or duplicate meta description')
+              is_redirect = ('http-equiv="refresh"' in raw.lower() and 'location.replace(' in raw)
+              if not is_redirect and (len(parser.description) != 1 or not parser.description[0].strip()): problems.append('Missing or duplicate meta description')
               if len(parser.canonical) != 1: problems.append('Missing or duplicate canonical')
               elif urlparse(parser.canonical[0]).netloc != 'memoryandspeech.com': problems.append('Canonical points outside memoryandspeech.com')
               if '<<link' in raw: problems.append('Malformed <<link markup')
-              if any('noindex' in x.lower() for x in parser.robots): problems.append('Contains noindex directive (review)')
+              if not is_redirect and any('noindex' in x.lower() for x in parser.robots): problems.append('Contains noindex directive (review)')
               if problems:
                   issues.extend(f'{path}: {x}' for x in problems)
           try:
