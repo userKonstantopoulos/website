@@ -1,0 +1,90 @@
+name: Weekly SEO audit
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 7 * * 1'
+  pull_request:
+    paths:
+      - '**/*.html'
+      - 'robots.txt'
+      - 'sitemap.xml'
+      - '.github/workflows/seo-audit.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Audit static HTML SEO
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from html.parser import HTMLParser
+          from urllib.parse import urlparse
+          import xml.etree.ElementTree as ET
+
+          class Head(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.title = ''
+                  self.in_title = False
+                  self.description = []
+                  self.canonical = []
+                  self.robots = []
+              def handle_starttag(self, tag, attrs):
+                  d = dict(attrs)
+                  if tag == 'title': self.in_title = True
+                  if tag == 'meta' and d.get('name','').lower() == 'description': self.description.append(d.get('content',''))
+                  if tag == 'meta' and d.get('name','').lower() == 'robots': self.robots.append(d.get('content',''))
+                  if tag == 'link' and d.get('rel','').lower() == 'canonical': self.canonical.append(d.get('href',''))
+              def handle_endtag(self, tag):
+                  if tag == 'title': self.in_title = False
+              def handle_data(self, data):
+                  if self.in_title: self.title += data
+
+          pages = sorted(p for p in Path('.').rglob('*.html') if '.git' not in p.parts)
+          issues = []
+          report = ['# Weekly SEO audit', '', f'HTML pages checked: {len(pages)}', '']
+          for path in pages:
+              raw = path.read_text(encoding='utf-8', errors='replace')
+              parser = Head()
+              parser.feed(raw)
+              problems = []
+              if not parser.title.strip(): problems.append('Missing title')
+              is_redirect = ('http-equiv="refresh"' in raw.lower() and 'location.replace(' in raw)
+              if not is_redirect and (len(parser.description) != 1 or not parser.description[0].strip()): problems.append('Missing or duplicate meta description')
+              if len(parser.canonical) != 1: problems.append('Missing or duplicate canonical')
+              elif urlparse(parser.canonical[0]).netloc != 'memoryandspeech.com': problems.append('Canonical points outside memoryandspeech.com')
+              if '<<link' in raw: problems.append('Malformed <<link markup')
+              if not is_redirect and any('noindex' in x.lower() for x in parser.robots): problems.append('Contains noindex directive (review)')
+              if problems:
+                  issues.extend(f'{path}: {x}' for x in problems)
+          try:
+              root = ET.parse('sitemap.xml').getroot()
+              locs = [x.text.strip() for x in root.iter() if x.tag.endswith('}loc') and x.text]
+              for url in locs:
+                  parsed = urlparse(url)
+                  if parsed.netloc != 'memoryandspeech.com':
+                      issues.append(f'sitemap.xml: unexpected domain in {url}')
+                  elif parsed.path.endswith('.html') and not Path(parsed.path.lstrip('/')).exists():
+                      issues.append(f'sitemap.xml: missing HTML file for {url}')
+              report.append(f'Sitemap URLs checked: {len(locs)}')
+          except Exception as e:
+              issues.append(f'sitemap.xml: cannot parse ({e})')
+          if not Path('robots.txt').exists():
+              issues.append('robots.txt missing')
+          report += ['', f'Findings: {len(issues)}', '']
+          report += [f'- {x}' for x in issues] if issues else ['No findings in the checks implemented.']
+          report += ['', 'Note: This is a static audit, not a Google ranking or indexing check. No site files were changed.']
+          Path('seo-audit-report.md').write_text('\n'.join(report)+'\n', encoding='utf-8')
+          print('\n'.join(report))
+          PY
+      - name: Upload SEO report
+        uses: actions/upload-artifact@v4
+        with:
+          name: seo-audit-report
+          path: seo-audit-report.md
