@@ -1,0 +1,47 @@
+name: Generate article draft for approval
+
+on:
+  workflow_dispatch:
+    inputs:
+      topic:
+        description: 'Greek article topic (no patient information)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  draft:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check API key is configured
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          if [ -z "$OPENAI_API_KEY" ]; then
+            echo "::error::OPENAI_API_KEY secret is missing. No API request made."
+            exit 1
+          fi
+      - name: Generate unpublished article draft
+        id: generate
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          ARTICLE_TOPIC: ${{ inputs.topic }}
+          ARTICLE_MODEL: gpt-4.1-mini
+        run: python3 scripts/generate_article_draft.py
+      - name: Create draft pull request (never auto-publish)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DRAFT_PATH: ${{ steps.generate.outputs.draft_path }}
+        run: |
+          BRANCH="article-draft-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$BRANCH"
+          git add -- "$DRAFT_PATH"
+          git commit -m "Draft scientific article for review"
+          git push origin "$BRANCH"
+          gh pr create --draft --base main --head "$BRANCH" --title "Review AI article draft: ${DRAFT_PATH##*/}" --body "Unpublished draft. Scientific fact-checking and citation verification are mandatory. Do not merge until reviewed and converted into an approved HTML page."
