@@ -994,3 +994,35 @@ body.home .topbar .nav-actions .btn.primary:hover { background: #1a1a1a; }
   }
   .home .hero-tagline h1 { font-size: clamp(17px, 4.5vw, 25px); }
 }
+
+/* The original banner contains an inaccurate rasterized subtitle.
+   Cover that exact region inside the banner layer, independent of hero grid. */
+.home .hero-media .hero-brand-corrected {
+  position: absolute !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  left: 14.5% !important;
+  top: 65% !important;
+  width: 27% !important;
+  min-height: 13% !important;
+  padding: 8px 6px !important;
+  box-sizing: border-box;
+  z-index: 10 !important;
+  background: linear-gradient(110deg, #2064b5, #1557a7) !important;
+  color: #fff !important;
+  text-align: center;
+  font: 600 clamp(16px, 2vw, 31px)/1.28 Manrope, Arial, sans-serif !important;
+  text-shadow: 0 1px 3px rgba(0,0,0,.2);
+  pointer-events: none;
+}
+@media (max-width: 640px) {
+  .home .hero-media .hero-brand-corrected {
+    left: 5% !important;
+    top: 63% !important;
+    width: 90% !important;
+    min-height: 12% !important;
+    font-size: clamp(15px, 4vw, 22px) !important;
+  }
+}
