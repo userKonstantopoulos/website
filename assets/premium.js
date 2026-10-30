@@ -99,7 +99,7 @@
     var href = (link.getAttribute("href") || "").toLowerCase();
     if (href.indexOf("tel:") === 0) trackContact("contact_click", "phone");
     else if (href.indexOf("mailto:") === 0) trackContact("contact_click", "email");
-    else if (/(^|\\/)epikoinonia\\.html(?:[?#]|$)|(^|\\/)contact\\.html(?:[?#]|$)/.test(href)) {
+    else if (/(^|\/)epikoinonia\.html(?:[?#]|$)|(^|\/)contact\.html(?:[?#]|$)/.test(href)) {
       trackContact("contact_page_click", "website");
     }
   });

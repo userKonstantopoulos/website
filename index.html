@@ -36,7 +36,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap"></noscript>>
-  <link rel="stylesheet" href="assets/premium.css?v=restore1030">
+  <link rel="stylesheet" href="assets/premium.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -74,18 +74,6 @@
     "medicalSpecialty": ["SpeechPathology", "Neurologic"]
   }
   </script>
-
-  <style id="emergency-content-visibility">
-    /* Emergency recovery: make homepage text visible without JavaScript or cached CSS. */
-    .reveal, .hero-tagline, .hero-copy, .section-head, .svc-row, .feature-panel, .step { opacity: 1 !important; visibility: visible !important; transform: none !important; }
-    @media (max-width:640px) {
-      body.home .hero { min-height: 0 !important; padding: 96px 0 30px !important; display: block !important; }
-      body.home .hero-media { display: none !important; }
-      body.home .hero-tagline { position: relative !important; top: auto !important; left: auto !important; width: calc(100% - 32px) !important; margin: 0 auto 12px !important; padding: 16px !important; background: #155aa7 !important; }
-      body.home .hero-grid { display: block !important; }
-      body.home .hero-copy { position: relative !important; top: auto !important; right: auto !important; bottom: auto !important; width: 100% !important; max-width: none !important; margin: 0 !important; background: #155aa7 !important; }
-    }
-  </style>
 </head>
 <body class="home">
   <div class="progress" id="progress"></div>
@@ -125,11 +113,10 @@
           <source media="(max-width: 640px)" srcset="assets/hero-brand-banner-mobile-optimized.webp">
           <img src="assets/hero-brand-banner.png" alt="">
         </picture>
-        <div class="hero-brand-corrected" aria-hidden="true">Γραφείο Λογοθεραπείας<br>&amp; Γνωστικής Αξιολόγησης</div>
       </div>
-      <div class="hero-tagline"><h1>Γραφείο Λογοθεραπείας &amp; Γνωστικής Αξιολόγησης</h1></div>
+      <div class="hero-tagline reveal"><h1>Εξειδικευμένη Λογοθεραπεία για παιδιά, ενήλικες και ηλικιωμένους στην Ανατολική Αττική</h1></div>
       <div class="shell hero-grid">
-        <div class="hero-copy">
+        <div class="hero-copy reveal">
           <div class="hero-doctor">
             <img src="assets/professor-konstantopoulos-optimized.webp" alt="Δρ. Κωνσταντίνος Κωνσταντόπουλος">
             <span><strong>Δρ. Κωνσταντίνος Κωνσταντόπουλος</strong><small>Καθηγητής Λογοθεραπείας, Πανεπιστήμιο Πελοποννήσου</small></span>
@@ -150,36 +137,36 @@
 
     <section class="section services" id="services">
       <div class="shell">
-        <div class="section-head">
+        <div class="section-head reveal">
           <p class="kicker">Υπηρεσίες</p>
           <h2>Λογοθεραπεία και εξειδικευμένη αξιολόγηση για παιδιά και ενήλικες.</h2>
         </div>
         <div class="svc-list" id="svcList">
-          <article class="svc-row open">
+          <article class="svc-row open reveal">
             <button class="svc-head" type="button">
               <span>01</span><strong>Δυσλεξία και μαθησιακές δυσκολίες</strong><i></i>
             </button>
             <div class="svc-body"><p>Εξειδικευμένη λογοθεραπευτική αξιολόγηση όταν ένα παιδί ή έφηβος δυσκολεύεται στην ανάγνωση, την ορθογραφία, την κατανόηση στο σχολικό περιβάλλον.</p><a class="read-more" href="dyslexia-mathisiakes-dyskolies-nea-makri.html">Σελίδα υπηρεσίας</a></div>
           </article>
-          <article class="svc-row">
+          <article class="svc-row reveal">
             <button class="svc-head" type="button">
               <span>02</span><strong>Γνωστική αξιολόγηση</strong><i></i>
             </button>
             <div class="svc-body"><p>Όταν εσείς ή ένας δικός σας άνθρωπος παρουσιάζει αλλαγές στη μνήμη ή την επικοινωνία, πραγματοποιείται εξειδικευμένη αξιολόγηση και λογοθεραπεία που εστιάζεται στη μνήμη.</p><a class="read-more" href="gnostiki-aksiologisi-nea-makri.html">Σελίδα υπηρεσίας</a></div>
           </article>
-          <article class="svc-row">
+          <article class="svc-row reveal">
             <button class="svc-head" type="button">
               <span>03</span><strong>Δεύτερη επιστημονική γνώμη</strong><i></i>
             </button>
             <div class="svc-body"><p>Δεύτερη επιστημονική γνώμη στη λογοθεραπεία όταν η οικογένεια χρειάζεται επιβεβαίωση μιας διάγνωσης, επανεκτίμηση προηγούμενων ευρημάτων ή σαφέστερη κατεύθυνση για το επόμενο βήμα.</p><a class="read-more" href="deuteri-gnomi-logotherapeia-nea-makri.html">Σελίδα υπηρεσίας</a></div>
           </article>
-          <article class="svc-row">
+          <article class="svc-row reveal">
             <button class="svc-head" type="button">
               <span>04</span><strong>Νευρολογικές διαταραχές</strong><i></i>
             </button>
             <div class="svc-body"><p>Λογοθεραπεία ενηλίκων. Αξιολόγηση και αποκατάσταση μετά από εγκεφαλικό επεισόδιο, κρανιοεγκεφαλική κάκωση ή άλλη νευρολογική νόσο με έμφαση στην οικογένεια.</p><a class="read-more" href="nevrologikes-diataraches-logotherapeia-nea-makri.html">Σελίδα υπηρεσίας</a></div>
           </article>
-          <article class="svc-row">
+          <article class="svc-row reveal">
             <button class="svc-head" type="button">
               <span>05</span><strong>Δυσκολίες στη φωνή ή την κατάποση</strong><i></i>
             </button>
@@ -191,7 +178,7 @@
 
     <section class="section family" id="family">
       <div class="shell">
-        <div class="feature-panel blue">
+        <div class="feature-panel blue reveal">
           <p class="kicker">Για την οικογένεια</p>
           <h2>Ανησυχείτε για έναν δικό σας άνθρωπο;</h2>
           <p>Είτε πρόκειται για ένα παιδί που δυσκολεύεται στην ανάγνωση και τη μάθηση είτε για έναν ενήλικα με αλλαγές στην επικοινωνία, τη μνήμη, τη φωνή ή την κατάποση, μπορείτε να επικοινωνήσετε μαζί μας για να συζητήσουμε αν χρειάζεται εξειδικευμένη αξιολόγηση.</p>
@@ -202,22 +189,22 @@
 
     <section class="section method" id="method">
       <div class="shell method-grid">
-        <div class="section-head">
+        <div class="section-head reveal">
           <p class="kicker">Προσέγγιση</p>
           <h2>Η αξιολόγηση προηγείται της θεραπείας.</h2>
           <p>Η προσέγγιση ξεκινά με συστηματική αξιολόγηση, ώστε η οικογένεια και ο ίδιος ο άνθρωπος να γνωρίζουν τι συμβαίνει, ποιοι είναι οι στόχοι και ποιο το πλάνο της λογοθεραπείας έχει νόημα.</p>
         </div>
         <div class="steps">
-          <div class="step"><span>01</span><strong>Κλινική αξιολόγηση</strong><p>Αρχική αξιολόγηση περίπου 75 λεπτών, με συζήτηση των δυσκολιών, του ιστορικού και των στόχων του ανθρώπου και της οικογένειας.</p></div>
-          <div class="step"><span>02</span><strong>Τεκμηρίωση ευρημάτων</strong><p>Χρήση σύγχρονων εργαλείων και σαφής εξήγηση των αποτελεσμάτων, ώστε να γνωρίζετε τι δείχνει η αξιολόγηση και τι προτείνεται.</p></div>
-          <div class="step"><span>03</span><strong>Εξατομικευμένη λογοθεραπευτική παρέμβαση</strong><p>Συνεδρίες 45 λεπτών με συγκεκριμένους στόχους, παρακολούθηση προόδου και προσαρμογές όταν χρειάζεται.</p></div>
+          <div class="step reveal"><span>01</span><strong>Κλινική αξιολόγηση</strong><p>Αρχική αξιολόγηση περίπου 75 λεπτών, με συζήτηση των δυσκολιών, του ιστορικού και των στόχων του ανθρώπου και της οικογένειας.</p></div>
+          <div class="step reveal"><span>02</span><strong>Τεκμηρίωση ευρημάτων</strong><p>Χρήση σύγχρονων εργαλείων και σαφής εξήγηση των αποτελεσμάτων, ώστε να γνωρίζετε τι δείχνει η αξιολόγηση και τι προτείνεται.</p></div>
+          <div class="step reveal"><span>03</span><strong>Εξατομικευμένη λογοθεραπευτική παρέμβαση</strong><p>Συνεδρίες 45 λεπτών με συγκεκριμένους στόχους, παρακολούθηση προόδου και προσαρμογές όταν χρειάζεται.</p></div>
         </div>
       </div>
     </section>
 
     <section class="section about" id="about">
       <div class="shell about-grid">
-        <div class="about-card">
+        <div class="about-card reveal">
           <p class="kicker">Ο Κλινικός</p>
           <h2>Δρ. Κωνσταντίνος Κωνσταντόπουλος</h2>
           <p class="intro">Καθηγητής Λογοθεραπείας με 22+ χρόνια κλινικής εμπειρίας και διεθνή εκπαίδευση σε ΗΠΑ και Ηνωμένο Βασίλειο. Η αξιολόγηση βασίζεται σε σύγχρονα επιστημονικά εργαλεία, με στόχο να γνωρίζετε με σαφήνεια πού βρίσκεται η δυσκολία και ποιο είναι το κατάλληλο επόμενο βήμα.</p>
@@ -227,7 +214,7 @@
             <li>Δυσλεξία και μαθησιακές δυσκολίες · γνωστικές λειτουργίες · νευρολογικές διαταραχές · φωνή και κατάποση</li>
           </ul>
         </div>
-        <figure class="quote-card">
+        <figure class="quote-card reveal">
           <blockquote>Η σωστή θεραπεία ξεκινά από τη σωστή αξιολόγηση.</blockquote>
           <figcaption>ΜΝΗΜΗ & ΛΟΓΟΣ</figcaption>
         </figure>
@@ -236,7 +223,7 @@
 
     <section class="section space" id="space">
       <div class="shell">
-        <div class="section-head">
+        <div class="section-head reveal">
           <p class="kicker">Ο χώρος</p>
           <h2>Ήρεμο περιβάλλον για αξιολόγηση και θεραπευτική συνέπεια.</h2>
         </div>
@@ -252,25 +239,25 @@
          μαρτυρίες πελατών πριν τη δημοσίευση. Δεν έχει προστεθεί schema.org Review markup επίτηδες. -->
     <section class="section voices" id="voices">
       <div class="shell">
-        <div class="section-head">
+        <div class="section-head reveal">
           <p class="kicker">Εμπειρίες</p>
           <h2>Τι λένε οι άνθρωποι που μας εμπιστεύτηκαν.</h2>
           <p>Σύντομες μαρτυρίες από οικογένειες και ασθενείς που πέρασαν από αξιολόγηση ή θεραπευτικό πρόγραμμα.</p>
         </div>
         <div class="voice-grid">
-          <figure class="voice-card">
+          <figure class="voice-card reveal">
             <blockquote>Πήγαμε για τη μητέρα μου, που είχε αρχίσει να ξεχνάει. Για πρώτη φορά κάποιος μας εξήγησε με στοιχεία τι ακριβώς συμβαίνει και τι μπορούμε να κάνουμε. Φύγαμε με καθαρή εικόνα και ένα συγκεκριμένο πλάνο.</blockquote>
             <figcaption><strong>Ελένη Π.</strong>Κόρη ασθενούς · Νέα Μάκρη</figcaption>
           </figure>
-          <figure class="voice-card">
+          <figure class="voice-card reveal">
             <blockquote>Ο γιος μου δυσκολευόταν στην άρθρωση και είχαμε ακούσει δέκα διαφορετικές γνώμες. Η αξιολόγηση έγινε αναλυτικά και χωρίς βιασύνη, και το πρόγραμμα προσαρμόστηκε στον δικό του ρυθμό.</blockquote>
             <figcaption><strong>Γιώργος Μ.</strong>Γονέας · Μαραθώνας</figcaption>
           </figure>
-          <figure class="voice-card">
+          <figure class="voice-card reveal">
             <blockquote>Μετά το εγκεφαλικό του συζύγου μου, η επικοινωνία ήταν το πιο δύσκολο κομμάτι. Κάθε συνεδρία είχε ξεκάθαρο στόχο και είδαμε πραγματική διαφορά στην καθημερινότητά μας.</blockquote>
             <figcaption><strong>Αναστασία Λ.</strong>Σύζυγος ασθενούς · Ραφήνα</figcaption>
           </figure>
-          <figure class="voice-card">
+          <figure class="voice-card reveal">
             <blockquote>Ζητήσαμε δεύτερη γνώμη για τη διάγνωση δυσλεξίας της κόρης μας. Πήραμε μια τεκμηριωμένη έκθεση, γραμμένη με τρόπο που το σχολείο μπόρεσε πραγματικά να χρησιμοποιήσει.</blockquote>
             <figcaption><strong>Δημήτρης Κ.</strong>Γονέας · Πικέρμι</figcaption>
           </figure>
@@ -281,12 +268,12 @@
 
     <section class="section contact" id="contact">
       <div class="shell contact-grid">
-        <div class="contact-copy">
+        <div class="contact-copy reveal">
           <p class="kicker">Επικοινωνία</p>
           <h2>Ραντεβού κατόπιν προγραμματισμού.</h2>
           <p>Οι συνεδρίες και οι αξιολογήσεις πραγματοποιούνται αποκλειστικά κατόπιν ραντεβού. Αν θέλετε να συζητήσετε αν χρειάζεται λογοθεραπευτική ή γνωστική αξιολόγηση για εσάς ή έναν δικό σας άνθρωπο, επικοινωνήστε τηλεφωνικά ή μέσω email.</p>
         <form class="contact-form" action="https://formspree.io/f/xqpaawzk" method="POST" data-ok="Ευχαριστούμε! Λάβαμε το μήνυμά σας και θα επικοινωνήσουμε μαζί σας σύντομα." data-err="Κάτι πήγε στραβά. Δοκιμάστε ξανά ή καλέστε μας στο 22941 52989." data-sending="Αποστολή…"><p class="contact-form-title">Ή στείλτε μας μήνυμα</p><input type="hidden" name="_subject" value="Νέο αίτημα ραντεβού — ΜΝΗΜΗ &amp; ΛΟΓΟΣ"><input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true"><label><span>Ονοματεπώνυμο</span><input type="text" name="name" autocomplete="name" required></label><div class="form-row"><label><span>Email</span><input type="email" name="email" autocomplete="email" required></label><label><span>Τηλέφωνο</span><input type="tel" name="phone" autocomplete="tel" required></label></div><label><span>Μήνυμα <em>(προαιρετικό)</em></span><textarea name="message" rows="4" placeholder="Πείτε μας λίγα λόγια για το αίτημά σας…"></textarea></label><button class="btn primary" type="submit">Αποστολή αιτήματος</button><div class="form-status" role="status" aria-live="polite"></div></form></div>
-        <div class="contact-card">
+        <div class="contact-card reveal">
           <a href="tel:+302294152989"><span>Σταθερό</span><strong>22941 52989</strong></a>
           <a href="tel:+306932655558"><span>Κινητό</span><strong>693 265 5558</strong></a>
           <a href="mailto:konstantopoulos.slp@gmail.com"><span>Email</span><strong>konstantopoulos.slp@gmail.com</strong></a>
@@ -311,6 +298,6 @@ document.addEventListener('click', function(e) {
   });
 });
 </script>
-  <script src="assets/premium.js?v=restore1030"></script>
+  <script src="assets/premium.js"></script>
 </body>
 </html>
