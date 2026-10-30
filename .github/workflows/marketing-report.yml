@@ -28,7 +28,7 @@ jobs:
       - name: Generate monthly aggregate report
         env:
           GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GA4_SERVICE_ACCOUNT_JSON }}
-          GSC_SITE_URL: 'sc-domain:memoryandspeech.com'
+          GSC_SITE_URL: 'https://memoryandspeech.com/'
           GA4_PROPERTY_ID: '552213944'
           GA4_SERVICE_ACCOUNT_JSON: ${{ secrets.GA4_SERVICE_ACCOUNT_JSON }}
           MONTHLY_CALLS: ${{ inputs.calls }}
