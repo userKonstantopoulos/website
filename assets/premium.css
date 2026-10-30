@@ -1026,3 +1026,6 @@ body.home .topbar .nav-actions .btn.primary:hover { background: #1a1a1a; }
     font-size: clamp(15px, 4vw, 22px) !important;
   }
 }
+
+/* Fail-safe: content must be readable if animation JavaScript fails. */
+.reveal { opacity: 1; transform: none; }
