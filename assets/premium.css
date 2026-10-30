@@ -975,3 +975,22 @@ body.home .topbar .nav-actions .btn.primary:hover { background: #1a1a1a; }
 .family .feature-panel h2 { margin: 0; font-size: clamp(28px, 3.4vw, 42px); }
 .family .feature-panel p { margin: 18px auto 26px; max-width: 680px; font-size: 17px; }
 .family .feature-panel .btn.secondary { background: #fff; border-color: transparent; }
+
+/* Opaque caption covers the inaccurate legacy subtitle in the hero artwork. */
+.home .hero-tagline {
+  top: 60%;
+  left: 12%;
+  width: min(570px, 42vw);
+  background: #155aa7;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+@media (max-width: 640px) {
+  .home .hero-tagline {
+    top: 57%;
+    left: 6%;
+    width: 88%;
+    padding: 12px 16px;
+  }
+  .home .hero-tagline h1 { font-size: clamp(17px, 4.5vw, 25px); }
+}
