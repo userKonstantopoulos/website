@@ -74,6 +74,39 @@
   var marquee = document.querySelector(".marquee-track");
   if (marquee) marquee.innerHTML = marquee.innerHTML + marquee.innerHTML;
 
+  // Consent-aware GA4 measurement: no personal information or form contents.
+  var measurementId = "G-1Q1ZS26GC9";
+  var analyticsReady = false;
+  function startAnalytics() {
+    if (analyticsReady) return;
+    analyticsReady = true;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+    window.gtag("js", new Date());
+    window.gtag("config", measurementId);
+    var script = document.createElement("script");
+    script.async = true;
+    script.src = "https://www.googletagmanager.com/gtag/js?id=" + measurementId;
+    document.head.appendChild(script);
+  }
+  function trackContact(eventName, channel) {
+    if (!analyticsReady || typeof window.gtag !== "function") return;
+    window.gtag("event", eventName, { contact_channel: channel });
+  }
+  document.addEventListener("click", function (event) {
+    var link = event.target.closest("a[href]");
+    if (!link) return;
+    var href = (link.getAttribute("href") || "").toLowerCase();
+    if (href.indexOf("tel:") === 0) trackContact("contact_click", "phone");
+    else if (href.indexOf("mailto:") === 0) trackContact("contact_click", "email");
+    else if (/(^|\\/)epikoinonia\\.html(?:[?#]|$)|(^|\\/)contact\\.html(?:[?#]|$)/.test(href)) {
+      trackContact("contact_page_click", "website");
+    }
+  });
+  document.addEventListener("contact-form-success", function () {
+    trackContact("contact_form_success", "form");
+  });
+
   var consentKey = "mnimiLogosCookieConsent";
   var hasConsent = false;
   try {
@@ -82,7 +115,7 @@
     hasConsent = false;
   }
 
-  if (!hasConsent) {
+  try {\n    if (window.localStorage.getItem(consentKey) === "accepted") startAnalytics();\n  } catch (error) {}\n\n  if (!hasConsent) {
     var pathname = window.location.pathname;
     var inLegal = pathname.indexOf("/legal/") !== -1;
     var inEn = pathname.indexOf("/en/") !== -1;
@@ -127,7 +160,7 @@
     banner.querySelectorAll("[data-cookie-choice]").forEach(function (button) {
       button.addEventListener("click", function () {
         try {
-          window.localStorage.setItem(consentKey, button.getAttribute("data-cookie-choice"));
+          window.localStorage.setItem(consentKey, button.getAttribute("data-cookie-choice"));\n          if (button.getAttribute("data-cookie-choice") === "accepted") startAnalytics();
         } catch (error) {}
         banner.classList.remove("show");
         window.setTimeout(function () {
