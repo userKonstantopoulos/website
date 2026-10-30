@@ -13,6 +13,8 @@ lines = [f"# Μηνιαία αναφορά marketing — {period}", "",
          "Στόχος: τουλάχιστον 4 νέα περιστατικά τον μήνα.", "",
          "## Πραγματικές επικοινωνίες και περιστατικά", "",
          "| Δείκτης | Τιμή |", "|---|---:|"]
+baseline_file = Path("marketing-measurement/monthly-counts.json")
+baseline = json.loads(baseline_file.read_text(encoding="utf-8")).get(period, {}) if baseline_file.exists() else {}
 values = {}
 for key, label in (("MONTHLY_CALLS", "Τηλεφωνικές επικοινωνίες"),
                    ("MONTHLY_APPOINTMENTS", "Ραντεβού αξιολόγησης"),
@@ -22,6 +24,8 @@ for key, label in (("MONTHLY_CALLS", "Τηλεφωνικές επικοινων�
         if not raw.isdecimal():
             raise ValueError(f"{key} must be a non-negative integer or empty")
         values[key] = int(raw)
+    if key not in values and key in baseline:
+        values[key] = baseline[key]
     lines.append(f"| {label} | {values.get(key, 'Δεν καταχωρίστηκε')} |")
 lines += ["", "Οι μετρήσεις επικοινωνιών καταχωρίζονται χειροκίνητα ως συνολικά πλήθη, όχι ως προσωπικά δεδομένα.", "",
           "## Google Search Console — οργανική αναζήτηση", ""]
