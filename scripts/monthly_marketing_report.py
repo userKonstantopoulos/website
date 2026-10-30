@@ -68,8 +68,14 @@ else:
     try:
         from google.oauth2 import service_account
         from google.auth.transport.requests import AuthorizedSession
+        try:
+            credential_info = json.loads(ga4_secret)
+        except json.JSONDecodeError:
+            raise ValueError("GA4 secret is not valid JSON; check the full file was pasted into the GitHub secret") from None
+        if credential_info.get("type") != "service_account" or not credential_info.get("private_key"):
+            raise ValueError("GA4 secret is not a complete Google service-account JSON key")
         credentials = service_account.Credentials.from_service_account_info(
-            json.loads(ga4_secret),
+            credential_info,
             scopes=["https://www.googleapis.com/auth/analytics.readonly"])
         session = AuthorizedSession(credentials)
         response = session.post(
@@ -111,7 +117,14 @@ else:
         else:
             lines += ["Δεν καταγράφηκαν αντίστοιχα συμβάντα στην περίοδο ή δεν είναι ακόμη διαθέσιμα.", ""]
     except Exception as exc:
-        lines += [f"Αποτυχία ανάκτησης GA4: {type(exc).__name__}. Ελέγξτε Data API, GA4 Viewer και property ID.", ""]
+        import requests
+        if isinstance(exc, ValueError):
+            reason = str(exc) if type(exc) is ValueError else type(exc).__name__
+        elif isinstance(exc, requests.HTTPError):
+            reason = f"HTTP {exc.response.status_code} from GA4 API"
+        else:
+            reason = type(exc).__name__
+        lines += [f"Αποτυχία ανάκτησης GA4: {reason}. Δεν καταγράφονται μυστικά διαπιστευτήρια.", ""]
 lines += ["Τα συμβάντα GA4 μετρούν ενέργειες επισκεπτών που αποδέχθηκαν τα cookies, όχι επιβεβαιωμένες κλήσεις ή νέους ασθενείς.", ""]
 
 n = values.get("MONTHLY_NEW_PATIENTS")
