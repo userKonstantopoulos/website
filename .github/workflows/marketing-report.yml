@@ -29,6 +29,8 @@ jobs:
         env:
           GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
           GSC_SITE_URL: ${{ vars.GSC_SITE_URL }}
+          GA4_PROPERTY_ID: ${{ vars.GA4_PROPERTY_ID }}
+          GA4_SERVICE_ACCOUNT_JSON: ${{ secrets.GA4_SERVICE_ACCOUNT_JSON }}
           MONTHLY_CALLS: ${{ inputs.calls }}
           MONTHLY_APPOINTMENTS: ${{ inputs.appointments }}
           MONTHLY_NEW_PATIENTS: ${{ inputs.new_patients }}

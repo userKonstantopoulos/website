@@ -17,3 +17,11 @@
 - Τα συνολικά πλήθη κλήσεων και περιστατικών εισάγονται χειροκίνητα. Κενά πεδία σημαίνουν **άγνωστο**, όχι μηδέν.
 - Τα Actions artifacts απαιτούν πρόσβαση στο GitHub και δεν ισοδυναμούν με ειδοποίηση email.
 - Ο στόχος 4 νέων περιστατικών/μήνα αξιολογείται μόνο εφόσον υπάρχει καταχώριση του σχετικού πλήθους.
+
+## Σύνδεση GA4 (εκκρεμεί εξουσιοδότηση)
+- Ενεργοποιήστε **Google Analytics Data API** στο έργο Google Cloud.
+- Προσθέστε το email του service account ως **Viewer** στο συγκεκριμένο GA4 property (όχι Editor).
+- GitHub Actions variable: `GA4_PROPERTY_ID` = αριθμητικό **Property ID** του GA4, όχι `G-1Q1ZS26GC9` (Measurement ID).
+- GitHub Actions secret: `GA4_SERVICE_ACCOUNT_JSON` = JSON credential του service account. Εναλλακτικά ο κώδικας χρησιμοποιεί το `GSC_SERVICE_ACCOUNT_JSON` εφόσον ο ίδιος λογαριασμός έχει Viewer στο GA4.
+- Η μηνιαία αναφορά διαβάζει μόνο συνολικά πλήθη των `contact_click`, `contact_page_click` και `contact_form_success` από το GA4 Data API. Για ανάλυση ανά κανάλι καταχωρίστε την event-scoped custom dimension `contact_channel` στο GA4. Χωρίς αυτήν χρησιμοποιείται συνολική καταμέτρηση ανά event.
+- Η εγκατάσταση κώδικα **δεν** σημαίνει ότι η εξουσιοδότηση ολοκληρώθηκε ή ότι επιβεβαιώθηκαν πραγματικά συμβάντα.

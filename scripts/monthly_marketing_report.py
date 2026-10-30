@@ -56,6 +56,64 @@ else:
             lines += ["Δεν επιστράφηκαν δεδομένα για την περίοδο (δεν σημαίνει απαραίτητα μηδενική επισκεψιμότητα).", ""]
     except Exception as exc:
         lines += [f"Η ανάκτηση δεδομένων GSC απέτυχε: {type(exc).__name__}. Ελέγξτε εξουσιοδότηση, site URL και το Actions log.", ""]
+# GA4 Data API: aggregate events only, never patient information.
+lines += ["## Google Analytics 4 — ενέργειες επικοινωνίας", ""]
+ga4_property = os.environ.get("GA4_PROPERTY_ID", "").strip()
+ga4_secret = os.environ.get("GA4_SERVICE_ACCOUNT_JSON", "").strip() or secret
+if not ga4_property or not ga4_secret:
+    lines += ["Δεν έχει συνδεθεί το GA4 Data API (GA4_PROPERTY_ID και διαπιστευτήρια ανάγνωσης).", ""]
+elif not ga4_property.isdecimal():
+    lines += ["Μη έγκυρο GA4_PROPERTY_ID: απαιτείται αριθμητικό property ID, όχι Measurement ID G-...", ""]
+else:
+    try:
+        from google.oauth2 import service_account
+        from google.auth.transport.requests import AuthorizedSession
+        credentials = service_account.Credentials.from_service_account_info(
+            json.loads(ga4_secret),
+            scopes=["https://www.googleapis.com/auth/analytics.readonly"])
+        session = AuthorizedSession(credentials)
+        response = session.post(
+            "https://analyticsdata.googleapis.com/v1beta/properties/" + ga4_property + ":runReport",
+            json={
+                "dateRanges": [{"startDate": first.isoformat(), "endDate": last.isoformat()}],
+                "dimensions": [{"name": "eventName"}, {"name": "customEvent:contact_channel"}],
+                "metrics": [{"name": "eventCount"}],
+                "dimensionFilter": {"filter": {"fieldName": "eventName", "inListFilter": {
+                    "values": ["contact_click", "contact_page_click", "contact_form_success"]}}},
+                "limit": 100
+            }, timeout=30)
+        # If custom dimension is not registered in GA4, retry with event name alone.
+        if response.status_code == 400:
+            response = session.post(
+                "https://analyticsdata.googleapis.com/v1beta/properties/" + ga4_property + ":runReport",
+                json={
+                    "dateRanges": [{"startDate": first.isoformat(), "endDate": last.isoformat()}],
+                    "dimensions": [{"name": "eventName"}],
+                    "metrics": [{"name": "eventCount"}],
+                    "dimensionFilter": {"filter": {"fieldName": "eventName", "inListFilter": {
+                        "values": ["contact_click", "contact_page_click", "contact_form_success"]}}},
+                    "limit": 100
+                }, timeout=30)
+        response.raise_for_status()
+        rows = response.json().get("rows", [])
+        counts = {}
+        for row in rows:
+            dims = [v.get("value", "") for v in row.get("dimensionValues", [])]
+            name = dims[0] if dims else ""
+            channel = dims[1] if len(dims) > 1 else "χωρίς ανάλυση καναλιού"
+            count = int(row["metricValues"][0]["value"])
+            counts[(name, channel)] = counts.get((name, channel), 0) + count
+        if counts:
+            lines += ["| Συμβάν | Κανάλι | Πλήθος |", "|---|---|---:|"]
+            for (name, channel), count in sorted(counts.items()):
+                lines.append(f"| {name} | {channel} | {count} |")
+            lines.append("")
+        else:
+            lines += ["Δεν καταγράφηκαν αντίστοιχα συμβάντα στην περίοδο ή δεν είναι ακόμη διαθέσιμα.", ""]
+    except Exception as exc:
+        lines += [f"Αποτυχία ανάκτησης GA4: {type(exc).__name__}. Ελέγξτε Data API, GA4 Viewer και property ID.", ""]
+lines += ["Τα συμβάντα GA4 μετρούν ενέργειες επισκεπτών που αποδέχθηκαν τα cookies, όχι επιβεβαιωμένες κλήσεις ή νέους ασθενείς.", ""]
+
 n = values.get("MONTHLY_NEW_PATIENTS")
 lines += ["## Αξιολόγηση στόχου", "",
           ("Στόχος επιτεύχθηκε." if n >= 4 else "Κάτω από τον στόχο: χρειάζεται διερεύνηση.") if n is not None else "Δεν μπορεί να αξιολογηθεί χωρίς πλήθος νέων περιστατικών.",
