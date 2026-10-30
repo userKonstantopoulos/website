@@ -1026,3 +1026,39 @@ body.home .topbar .nav-actions .btn.primary:hover { background: #1a1a1a; }
     font-size: clamp(15px, 4vw, 22px) !important;
   }
 }
+
+/* Homepage mobile repair: content must remain visible even if JS is cached or blocked. */
+body.home .reveal { opacity: 1; transform: none; }
+@media (max-width: 640px) {
+  body.home .hero {
+    min-height: 0;
+    padding: 84px 0 28px;
+    display: block;
+    background: #f4f8fc;
+  }
+  body.home .hero::before { display: none; }
+  body.home .hero-media { display: none !important; }
+  body.home .hero-tagline {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: calc(100% - 32px);
+    margin: 0 auto 12px;
+    padding: 16px;
+    background: #155aa7;
+    border-radius: 14px;
+  }
+  body.home .hero-tagline h1 { font-size: 21px; line-height: 1.25; }
+  body.home .hero-grid { display: block; }
+  body.home .hero .hero-copy {
+    position: relative;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 18px;
+    background: #155aa7;
+    border-radius: 14px;
+  }
+  body.home .hero .hero-actions { max-width: none; width: 100%; }
+  body.home .hero .hero-actions .btn.primary { min-height: 52px; }
+}
