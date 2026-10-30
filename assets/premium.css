@@ -976,28 +976,21 @@ body.home .topbar .nav-actions .btn.primary:hover { background: #1a1a1a; }
 .family .feature-panel p { margin: 18px auto 26px; max-width: 680px; font-size: 17px; }
 .family .feature-panel .btn.secondary { background: #fff; border-color: transparent; }
 
-/* Replace the inaccurate legacy subtitle embedded in the hero artwork.
-   Overlay is independent of navigation and remains editable HTML. */
-.home .hero-office-correction {
-  position: absolute;
-  z-index: 2;
-  top: 61%;
-  left: 14%;
-  width: 31%;
-  box-sizing: border-box;
-  padding: 1.25rem .25rem;
-  background: #185da9;
-  color: #fff;
-  font: 600 clamp(14px, 2.15vw, 34px)/1.32 Manrope, sans-serif;
-  text-align: center;
-  text-shadow: 0 2px 4px rgba(0,0,0,.18);
+/* Opaque caption covers the inaccurate legacy subtitle in the hero artwork. */
+.home .hero-tagline {
+  top: 60%;
+  left: 12%;
+  width: min(570px, 42vw);
+  background: #155aa7;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 @media (max-width: 640px) {
-  .home .hero-office-correction {
-    top: 48%;
+  .home .hero-tagline {
+    top: 57%;
     left: 6%;
     width: 88%;
-    padding: .75rem .25rem;
-    font-size: clamp(15px, 4vw, 23px);
+    padding: 12px 16px;
   }
+  .home .hero-tagline h1 { font-size: clamp(17px, 4.5vw, 25px); }
 }
