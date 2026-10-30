@@ -115,11 +115,7 @@
     hasConsent = false;
   }
 
-  try {
-    if (window.localStorage.getItem(consentKey) === "accepted") startAnalytics();
-  } catch (error) {}
-
-  if (!hasConsent) {
+  try {\n    if (window.localStorage.getItem(consentKey) === "accepted") startAnalytics();\n  } catch (error) {}\n\n  if (!hasConsent) {
     var pathname = window.location.pathname;
     var inLegal = pathname.indexOf("/legal/") !== -1;
     var inEn = pathname.indexOf("/en/") !== -1;
@@ -164,8 +160,7 @@
     banner.querySelectorAll("[data-cookie-choice]").forEach(function (button) {
       button.addEventListener("click", function () {
         try {
-          window.localStorage.setItem(consentKey, button.getAttribute("data-cookie-choice"));
-          if (button.getAttribute("data-cookie-choice") === "accepted") startAnalytics();
+          window.localStorage.setItem(consentKey, button.getAttribute("data-cookie-choice"));\n          if (button.getAttribute("data-cookie-choice") === "accepted") startAnalytics();
         } catch (error) {}
         banner.classList.remove("show");
         window.setTimeout(function () {
