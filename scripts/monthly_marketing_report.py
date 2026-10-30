@@ -55,7 +55,12 @@ else:
         else:
             lines += ["Δεν επιστράφηκαν δεδομένα για την περίοδο (δεν σημαίνει απαραίτητα μηδενική επισκεψιμότητα).", ""]
     except Exception as exc:
-        lines += [f"Η ανάκτηση δεδομένων GSC απέτυχε: {type(exc).__name__}. Ελέγξτε εξουσιοδότηση, site URL και το Actions log.", ""]
+        import requests
+        if isinstance(exc, requests.HTTPError) and exc.response is not None:
+            reason = f"HTTP {exc.response.status_code}"
+        else:
+            reason = type(exc).__name__
+        lines += [f"Η ανάκτηση δεδομένων GSC απέτυχε: {reason}. Ελέγξτε δικαιώματα ιδιοκτησίας και API.", ""]
 # GA4 Data API: aggregate events only, never patient information.
 lines += ["## Google Analytics 4 — ενέργειες επικοινωνίας", ""]
 ga4_property = os.environ.get("GA4_PROPERTY_ID", "").strip()
