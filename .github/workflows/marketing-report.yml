@@ -1,0 +1,41 @@
+name: Monthly marketing measurement
+on:
+  workflow_dispatch:
+    inputs:
+      calls:
+        description: 'Monthly phone enquiries (aggregate only; leave blank if unknown)'
+        required: false
+        type: string
+      appointments:
+        description: 'Monthly booked evaluations (aggregate only; leave blank if unknown)'
+        required: false
+        type: string
+      new_patients:
+        description: 'Monthly new patients (aggregate only; leave blank if unknown)'
+        required: false
+        type: string
+  schedule:
+    - cron: '23 8 2 * *'
+permissions:
+  contents: read
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Google auth dependency
+        run: python -m pip install 'google-auth>=2,<3' 'requests>=2,<3'
+      - name: Generate monthly aggregate report
+        env:
+          GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+          GSC_SITE_URL: ${{ vars.GSC_SITE_URL }}
+          MONTHLY_CALLS: ${{ inputs.calls }}
+          MONTHLY_APPOINTMENTS: ${{ inputs.appointments }}
+          MONTHLY_NEW_PATIENTS: ${{ inputs.new_patients }}
+        run: python scripts/monthly_marketing_report.py
+      - name: Upload report privately as Actions artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: marketing-report
+          path: marketing-report.md
+          retention-days: 90
