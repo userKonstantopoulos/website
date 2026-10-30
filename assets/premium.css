@@ -1004,9 +1004,9 @@ body.home .topbar .nav-actions .btn.primary:hover { background: #1a1a1a; }
   justify-content: center;
   flex-direction: column;
   left: 14.5% !important;
-  top: 65% !important;
+  top: 60% !important;
   width: 27% !important;
-  min-height: 13% !important;
+  min-height: 19% !important;
   padding: 8px 6px !important;
   box-sizing: border-box;
   z-index: 10 !important;
@@ -1020,9 +1020,9 @@ body.home .topbar .nav-actions .btn.primary:hover { background: #1a1a1a; }
 @media (max-width: 640px) {
   .home .hero-media .hero-brand-corrected {
     left: 5% !important;
-    top: 63% !important;
+    top: 56% !important;
     width: 90% !important;
-    min-height: 12% !important;
+    min-height: 20% !important;
     font-size: clamp(15px, 4vw, 22px) !important;
   }
 }
